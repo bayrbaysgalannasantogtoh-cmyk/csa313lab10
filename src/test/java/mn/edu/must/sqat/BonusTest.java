@@ -38,5 +38,25 @@ public class BonusTest {
 
 
 
+
+    @Test
+    @DisplayName("Streak breaks (kill) - present counts but streak resets")
+    public void testStreakBreak() {
+        assertEquals(5, DataFlowTargets.bonus(new int[]{1, 0, 1}, 2));
+    }
+
+    @Test
+    @DisplayName("Streak >=5 but present < threshold")
+    public void testStreakWithoutThreshold() {
+        // present=5 боловч threshold=10 тул score = 0 + 3 = 3
+        assertEquals(3, DataFlowTargets.bonus(new int[]{1, 1, 1, 1, 1}, 10));
+    }
+
+    @Test
+    @DisplayName("Multiple streaks but not beating best")
+    public void testStreakNotBeatingBest() {
+        assertEquals(5, DataFlowTargets.bonus(new int[]{1, 1, 0, 1}, 2));
+    }
+
     
 }
